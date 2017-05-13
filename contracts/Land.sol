@@ -22,7 +22,7 @@ contract Land {
       landOwner = msg.sender;
       key = 0;
       ownershipStructure = true;
-      details['physicalAddress'] = physicalAddress;
+      details["physicalAddress"] = physicalAddress;
 
     }
 
