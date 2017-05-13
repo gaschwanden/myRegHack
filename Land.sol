@@ -9,7 +9,6 @@ contract Land {
   uint public sqm;                  // frontend area
   bool public additionalInfo;       // frontend capture addditional information e.g. images, planing overlay
   address[] public buildings;
-  /*uint[] public map;*/
   mapping(uint=>uint) map;
   uint[] public keys;
 
