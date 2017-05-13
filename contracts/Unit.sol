@@ -45,10 +45,9 @@ contract Unit {
     }
 
     function setAttribute(string attribute, string value) returns(bool) {
-        if (msg.sender == agreement['owner']) {
-            attributes[attribute] = value;
-            return true;
-        }
+        // if (msg.sender == agreement['owner']) {
+        attributes[attribute] = value;
+        return true;
         return false;
     }
 }
