@@ -1,7 +1,6 @@
 pragma solidity ^0.4.8;
 
 import "./Building.sol";
-
 contract Land {
   address public landOwner;         // not required on frontend
   bool public ownershipStructure;   // frontend are you freehold owner
@@ -11,8 +10,10 @@ contract Land {
   uint public sqm;                  // frontend area
   bool public additionalInfo;       // frontend capture addditional information e.g. images, planing overlay
   address[] public buildings;
+  /*uint[] public map;*/
   mapping(uint=>uint) map;
   uint[] public keys;
+  uint test;
 
 
     function Land(uint _propertyID) {
@@ -47,3 +48,5 @@ contract Land {
     }
 
 }
+
+
