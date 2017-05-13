@@ -1,7 +1,5 @@
 pragma solidity ^0.4.8;
 
-import "./Unit.sol";
-
 contract Land {
   address public landOwner;         // not required on frontend
   bool public ownershipStructure;   // frontend are you freehold owner
@@ -11,8 +9,10 @@ contract Land {
   uint public sqm;                  // frontend area
   bool public additionalInfo;       // frontend capture addditional information e.g. images, planing overlay
   address[] public buildings;
+  /*uint[] public map;*/
   mapping(uint=>uint) map;
   uint[] public keys;
+  uint test;
 
 
     function Land(uint _propertyID) {
@@ -42,10 +42,6 @@ contract Land {
 
     }
 
-    function getBuildingByNumber(uint number) returns (address) {
-        return buildings[number];
-    }
-
 }
 
 
@@ -58,8 +54,7 @@ contract building {
   uint public numberOfUnits; // frontend capture
   bool public success;
   uint public unitID;
-//   address[] public uintsArray;
-   mapping(uint=>address) units;
+  address[] public uintsArray;
 
 
   function building(uint _propertyID, uint _numberOfUnits) {
@@ -84,16 +79,11 @@ contract building {
   }
 
 
-  function createUnits(uint unitID) {
+  function createUnits(uint uintID) {
 
     if(msg.sender != buildingOwner)throw;
-    // uintsArray.push(new Unit(buildingOwner, unitID));
-    units[unitID] = new Unit(buildingOwner, unitID);
+    uintsArray.push(new units(uintID));
 
-  }
-
-  function getUnitById(uint unitID) returns (address){
-      return units[unitID];
   }
 
 }
