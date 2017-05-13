@@ -1,6 +1,6 @@
 pragma solidity ^0.4.8;
 
-import "./Unit.sol";
+import "./Building.sol";
 
 contract Land {
   address public landOwner;         // not required on frontend
@@ -32,7 +32,7 @@ contract Land {
       if(ownershipStructure) {
         // createBuilding
         map[key] = buildings.length;
-        buildings.push(new building(propertyID,numberOfUnits));
+        buildings.push(new Building(propertyID,numberOfUnits));
         keys.push(key);
         key++;
         return true;
@@ -45,87 +45,5 @@ contract Land {
     function getBuildingByNumber(uint number) returns (address) {
         return buildings[number];
     }
-
-}
-
-
-///////////////////////////////////////////////////////////
-
-
-contract building {
-  address public buildingOwner;
-  uint public propertyID;
-  uint public numberOfUnits; // frontend capture
-  bool public success;
-  uint public unitID;
-//   address[] public uintsArray;
-   mapping(uint=>address) units;
-
-
-  function building(uint _propertyID, uint _numberOfUnits) {
-    buildingOwner = msg.sender;
-    propertyID = _propertyID;
-    numberOfUnits = _numberOfUnits;
-    success = true;
-
-    if(numberOfUnits>1){
-      for (uint8 i = 0; i < numberOfUnits; i++){
-        createUnits(i);
-      }
-    }
-  }
-  /*function getAddress() returns (address){
-    return buildingOwner;
-
-  }*/
-
-  function createBuilding(uint _propertyID, uint _numberOfUnits) returns (bool success) {
-    return success;
-  }
-
-
-  function createUnits(uint unitID) {
-
-    if(msg.sender != buildingOwner)throw;
-    // uintsArray.push(new Unit(buildingOwner, unitID));
-    units[unitID] = new Unit(buildingOwner, unitID);
-
-  }
-
-  function getUnitById(uint unitID) returns (address){
-      return units[unitID];
-  }
-
-}
-
-///////////////////////////////////////////////////////////
-
-contract units {
-  bool owningLand;
-  address public ownerUnit;
-  uint propertyID;
-  uint unitIdentifyer;  // frontend unit address
-  uint priceUnit;       // frontend
-  uint sqm;
-  uint propertyIdentifyer;
-
-	//event Transfer(address indexed _from, address indexed _to);
-
-  modifier onlyOwner {
-    if(msg.sender != ownerUnit) throw;
-    _;
-
-  }
-
-
-	function units(uint i) {
-		ownerUnit = msg.sender;
-    propertyIdentifyer = i;
-	}
-
-  function changeOwner(address newOwner) {
-    if (ownerUnit != msg.sender) throw;
-    ownerUnit = newOwner;
-  }
 
 }
