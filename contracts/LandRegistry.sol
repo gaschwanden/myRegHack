@@ -9,7 +9,8 @@ contract LandRegistry {
     }
 
     function registerLand(address owner, string physicalAddress) returns (bool) {
-        registry[owner] = new Land(physicalAddress);
+        registry[owner] = new Land();
+        return true;
     }
 
     function getLandByOwner(address owner) returns(address) {

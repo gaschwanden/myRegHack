@@ -14,6 +14,7 @@ contract Land {
   /*uint[] public map;*/
   mapping(uint=>uint) map;
   mapping(string=>string) details;
+  string pAddress;
   uint[] public keys;
   uint test;
 
@@ -22,7 +23,7 @@ contract Land {
       landOwner = msg.sender;
       key = 0;
       ownershipStructure = true;
-      details['physicalAddress'] = physicalAddress;
+      pAddress = physicalAddress;
 
     }
 
