@@ -6,10 +6,10 @@ import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
-import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
+import landregistry_artifacts from '../../build/contracts/LandRegistry.json'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
-var MetaCoin = contract(metacoin_artifacts);
+var LandRegistry = contract(landregistry_artifacts);
 
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
@@ -22,7 +22,7 @@ window.App = {
     var self = this;
 
     // Bootstrap the MetaCoin abstraction for Use.
-    MetaCoin.setProvider(web3.currentProvider);
+    LandRegistry.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
@@ -38,8 +38,6 @@ window.App = {
 
       accounts = accs;
       account = accounts[0];
-
-      self.refreshBalance();
     });
   },
 
@@ -48,53 +46,43 @@ window.App = {
     status.innerHTML = message;
   },
 
-  refreshBalance: function() {
+  getLandByOwner: function() {
     var self = this;
+    var landId = parseInt(document.getElementById("landId").value);
 
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-      return meta.getBalance.call(account, {from: account});
-    }).then(function(value) {
-      var balance_element = document.getElementById("balance");
-      balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error getting balance; see log.");
-    });
-  },
+    this.setStatus("Searching for land details... (please wait)");
 
-  sendCoin: function() {
-    var self = this;
-
-    var amount = parseInt(document.getElementById("amount").value);
-    var receiver = document.getElementById("receiver").value;
-
-    this.setStatus("Initiating transaction... (please wait)");
-
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-      return meta.sendCoin(receiver, amount, {from: account});
+    var registry;
+    LandRegistry.deployed().then(function(instance) {
+      registry = instance;
+      return registry.getLandByOwner(landId);
     }).then(function() {
-      self.setStatus("Transaction complete!");
-      self.refreshBalance();
+      self.setStatus("Land details received!");
     }).catch(function(e) {
       console.log(e);
-      self.setStatus("Error sending coin; see log.");
+      self.setStatus("Error finding land details.");
     });
   },
 
-  getBalance: function() {
-    alert('hello_world');
-
-    var address = parseInt(document.getElementById("address").value)
+  registerLand: function() {
     var self = this;
-    var meta;
-    MetaCoin.deploy().then(function(instance) {
-      meta = instance;
-      alert(meta.getBalance.call(address, {from: address}))
-    })
+    var owner = document.getElementById("ownerId").value;
+    var physicalAddress = document.getElementById("physical_address").value;
+    var landId;
+
+    this.setStatus('Registering land... (please wait)');
+
+    var registry;
+    LandRegistry.deployed().then(function(instance) {
+      registry = instance;
+      registry.registerLand(owner, physicalAddress);
+      return self.getLandByOwner(owner);
+    }).then(function(landId) {
+      self.setStatus('Land registered with ID: ' + landId);
+    }).catch(function(e) {
+      console.log(e);
+      self.setStatus('Error: Could not register land;');
+    });
   }
 };
 
