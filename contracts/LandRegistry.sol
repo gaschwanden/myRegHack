@@ -13,8 +13,7 @@ contract LandRegistry {
         return true;
     }
 
-    function getLandByOwner(address owner) returns(addre
-    ss) {
+    function getLandByOwner(address owner) returns(address) {
         return registry[owner];
     }
 }
