@@ -1,6 +1,7 @@
 pragma solidity ^0.4.8;
 
 import "./Building.sol";
+
 contract Land {
   address public landOwner;         // not required on frontend
   bool public ownershipStructure;   // frontend are you freehold owner
@@ -12,15 +13,16 @@ contract Land {
   address[] public buildings;
   /*uint[] public map;*/
   mapping(uint=>uint) map;
+  mapping(string=>string) details;
   uint[] public keys;
   uint test;
 
 
-    function Land(uint _propertyID) {
+    function Land(string physicalAddress) {
       landOwner = msg.sender;
-      propertyID = _propertyID;
       key = 0;
       ownershipStructure = true;
+      details['physicalAddress'] = physicalAddress;
 
     }
 
@@ -28,12 +30,12 @@ contract Land {
       return buildings.length;
     }
 
-    function createBuilding(uint _propertyID, bool ownershipStructure, uint numberOfUnits) returns (bool sufficient){
+    function createBuilding( bool ownershipStructure, uint numberOfUnits) returns (bool sufficient){
       if(msg.sender != landOwner)throw;
       if(ownershipStructure) {
         // createBuilding
         map[key] = buildings.length;
-        buildings.push(new Building(propertyID,numberOfUnits));
+        buildings.push(new Building(numberOfUnits));
         keys.push(key);
         key++;
         return true;
@@ -45,6 +47,10 @@ contract Land {
 
     function getBuildingByNumber(uint number) returns (address) {
         return buildings[number];
+    }
+
+    function getDetail(string detail) returns (string) {
+      return details[detail];
     }
 
 }

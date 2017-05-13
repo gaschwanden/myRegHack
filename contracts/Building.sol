@@ -4,7 +4,7 @@ import "./Unit.sol";
 
 contract Building {
   address public buildingOwner;
-  uint public propertyID;
+//   uint public propertyID;
   uint public numberOfUnits; // frontend capture
   bool public success;
   uint public unitID;
@@ -12,13 +12,13 @@ contract Building {
    mapping(uint=>address) units;
 
 
-  function Building(uint _propertyID, uint _numberOfUnits) {
+  function Building(uint _numberOfUnits) {
     buildingOwner = msg.sender;
-    propertyID = _propertyID;
+    // propertyID = _propertyID;
     numberOfUnits = _numberOfUnits;
     success = true;
 
-    if(numberOfUnits>1){
+    if (numberOfUnits > 1) {
       for (uint8 i = 0; i < numberOfUnits; i++){
         createUnits(i);
       }
@@ -29,13 +29,12 @@ contract Building {
 
   }*/
 
-  function createBuilding(uint _propertyID, uint _numberOfUnits) returns (bool success) {
-    return success;
-  }
+//   function createBuilding(uint , uint _numberOfUnits) returns (bool success) {
+//     return success;
+//   }
 
 
   function createUnits(uint unitID) {
-
     if(msg.sender != buildingOwner)throw;
     // uintsArray.push(new Unit(buildingOwner, unitID));
     units[unitID] = new Unit(buildingOwner, unitID);
