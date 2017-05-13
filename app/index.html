@@ -30,10 +30,10 @@
         <form class="ui form">
           <div class="ui inline fields">
             <div class="ten wide field">
-              <input type="text" name='landId' placeholder="Enter Land Id">
+              <input type="text" name='landId' id='landId' placeholder="Enter Land Id">
             </div>
             <div class="six wide field">
-              <button class="ui primary button">SHOW DETAILS</button>
+              <button class="ui primary button" onclick="App.getLandByOwner()">SHOW DETAILS</button>
             </div>
           </div>
         </form>
@@ -45,17 +45,17 @@
             Land Registration
           </h1>
           <br />
-          <form class="ui form">
+          <div class="ui form">
             <div class="field">
               <label>Owner Id</label>
-              <input type="text" name='ownerId'>
+              <input type="text" name='ownerId' id='ownerId'>
             </div>
             <div class="field">
               <label>Physical address</label>
-              <textarea name='physical_address'></textarea>
+              <textarea name='physical_address' id='physical_address'></textarea>
             </div>
-            <button class="ui button" type="submit">REGISTER</button>
-          </form>
+            <button class="ui button" onclick="App.registerLand()">REGISTER</button>
+          </div>
         </div>
       </div>
     </div>
