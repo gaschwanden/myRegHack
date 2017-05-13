@@ -83,8 +83,22 @@ window.App = {
       console.log(e);
       self.setStatus("Error sending coin; see log.");
     });
+  },
+
+  getBalance: function() {
+    alert('hello_world');
+
+    var address = parseInt(document.getElementById("address").value)
+    var self = this;
+    var meta;
+    MetaCoin.deploy().then(function(instance) {
+      meta = instance;
+      alert(meta.getBalance.call(address, {from: address}))
+    })
   }
 };
+
+
 
 window.addEventListener('load', function() {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
