@@ -1,9 +1,26 @@
-# truffle-init-webpack
-Example webpack project with Truffle. Includes contracts, migrations, tests, user interface and webpack build pipeline.
+# Ethereum Truffle for RegHack Melbourne
+Based on a example webpack project with Truffle the team built a landregister and land tenure contracts that are compliance complete by design.
+
+## Team
+
+Prabhat Shrestha - tasker.prabhat@gmail.com
+Sunjay Sharma - sunjoy@yahoo.com
+Andrew Tran - andrewnamt@gmail.com
+Hooman Reisi Dehkordi - hreisi@live.com
+Enrique Klix -  enrique.klix@gmail.com
+Gideon Aschwanden - gideon.aschwanden@gmail.com
 
 ## Usage
 
-To initialize a project with this exapmple, run `truffle init webpack` inside an empty directory.
+1. $ testrpc            // Start your local Node
+2. $ ..cd truffle       // Go to truffle directory
+3. $ truffle compile    // Compiling the contracts existing in /contracts and defined in /migrations/2_deploy_contracts.js
+4. $ truffle migrate    // Migrate the contracts onto the local Node
+5. $ npm run dev        // Starts your localhost:8080 where you can interact with the contracts
+
+### Using Javascript
+
+Additionally you can interact with the contracts directly with the terminal. Commands are stored in
 
 ## Building and the frontend
 
